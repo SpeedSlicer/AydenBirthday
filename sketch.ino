@@ -1,53 +1,50 @@
 #include <LiquidCrystal.h>
+int BUZZER_PIN = 13;
 
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
-// 50% OF DYNAMIC MEMORY :SOB:
+//30% of the dynamic memory :smile:
 const char* speech[] = {
   "If you see text ",
   "on this screen,",
   "I'm glad you    ",
   "didn't explode! ",
   "Happy Birthday ",
-  "Ayden!         ",
-  "You've been a  ",
-  "critical part  ",
-  "of my life     ",
+  "Ayden!",
+  "You've been a",
+  "critical part",
+  "of my life",
   "since 6th grade",
   "Your impact is ",
   "incredibly HUGE",
-  "on my life.    ",
+  "on my life.",
   "You are a day 1",
   "friend and made",
-  "an impact on   ",
+  "an impact on",
   "everyone you met",
-  ".              ",
-  "You still spoke ",
-  "to me when I   ",
-  "wasn't as good ",
-  "at socializing,",
-  "and inspired me",
-  "to change      ",
+  ".",
+  "You inspired me",
+  "to change",
   "myself for the ",
-  "better.        ",
-  "Thanks for     ",
-  "always being   ",
-  "there.         ",
+  "better.",
+  "Thanks for",
+  "always being",
+  "there.",
   "Anyways, since ",
   "I'm not a poet ",
   "and I'm running",
   "out of memory, ",
-  "I guess my     ",
-  "message ends   ",
-  "here!          ",
-  "- Shaun!       ",
-  "               ",
-  "If you want to ",
+  "I guess my",
+  "message ends",
+  "here!",
+  "- Shaun!",
+  "",
+  "If you want to",
   "change the text",
-  "(since this    ",
-  "loops) go to   ",
-  "github.com/    ",
-  "SpeedSlicer/   ",
-  "AydenBirthday  "
+  "(since this",
+  "loops) go to",
+  "github.com/",
+  "SpeedSlicer/",
+  "AydenBirthday"
 };
 
 const int speechCount = sizeof(speech) / sizeof(speech[0]);
@@ -98,6 +95,7 @@ byte cakeFlame2[8] = {
 
 
 void setup() {
+  pinMode(BUZZER_PIN, OUTPUT);
   lcd.begin(16, 2);
   lcd.createChar(0, balloon);
   lcd.createChar(1, cakeFlame1);
@@ -148,6 +146,9 @@ void typeLine(int row, const char* text) {
   lcd.setCursor(0, row);
   for (int i = 0; i < 16 && text[i] != '\0'; i++) {
     lcd.print(text[i]);
+    digitalWrite(BUZZER_PIN, HIGH); 
+    delay(15);
+    digitalWrite(BUZZER_PIN, LOW);
     delay(100);
   }
 }
